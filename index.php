@@ -28,12 +28,13 @@
             
             // Create connection
             $conn = new mysqli($servername, $username, $password, $db);
-            $sql = "SELECT name, author, imagefile, width, height FROM images";
+            $sql = "SELECT id, name, author, imagefile, width, height FROM images";
             $result = $conn->query($sql);
             if ($result->num_rows > 0) {
                 // output data of each row
                 while($row = $result->fetch_assoc()) {
                     echo"
+                    <a href='/sprawdzian/exam/view.php?id=".$row["id"]."'>
                     <div style='max-width:20vw;' class=\"col\">
                     <div class=\"card shadow-sm\">
                         <img style='max-height:100px; max-width:200px;'placehorder='photo' src='".$row["imagefile"]."' height='".$row["height"]."' width='".$row["width"]."'>
@@ -41,7 +42,7 @@
                         <p class=\"card-text\">".$row["name"]."<br>Author: ".$row["author"]."</p>
                         </div>
                     </div>
-                    </div>";
+                    </div></a>";
                 }
               } else {
                 echo "No photos";
