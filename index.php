@@ -9,11 +9,48 @@
 </head>
 <body>
 <div class="col-lg-8 mx-auto p-3 py-md-5">
-    <h1>Site is under construction!</h1>
-        <p class="fs-5 col-md-8">Wait until it's done.</p>
+    <h1>Gallery</h1>
+        <p class="fs-5 col-md-8">Here you go:</p>
 
         <div class="mb-5">
         <p><?php echo date('d-m-y h:m:s');?></p>
+        </div>
+        <div>
+        <div class="album py-5 bg-light">
+            <div class="container">
+
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-3" style='max-width:80vw;'>
+            <?php
+            $servername = "localhost";
+            $username = "susy";
+            $password = "novell";
+            $db="mkw";
+            
+            // Create connection
+            $conn = new mysqli($servername, $username, $password, $db);
+            $sql = "SELECT name, author, imagefile, width, height FROM images";
+            $result = $conn->query($sql);
+            if ($result->num_rows > 0) {
+                // output data of each row
+                while($row = $result->fetch_assoc()) {
+                    echo"
+                    <div style='max-width:20vw;' class=\"col\">
+                    <div class=\"card shadow-sm\">
+                        <img style='max-height:100px; max-width:200px;'placehorder='photo' src='".$row["imagefile"]."' height='".$row["height"]."' width='".$row["width"]."'>
+                        <div class=\"card-body\">
+                        <p class=\"card-text\">".$row["name"]."<br>Author: ".$row["author"]."</p>
+                        </div>
+                    </div>
+                    </div>";
+                }
+              } else {
+                echo "No photos";
+              }
+                
+            ?>
+                
+            </div>
+            </div>
         </div>
 </div>
 </body>
