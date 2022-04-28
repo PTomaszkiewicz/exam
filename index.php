@@ -13,7 +13,7 @@
         <p class="fs-5 col-md-8">Wait until it's done.</p>
 
         <div class="mb-5">
-        <?php echo date('d-m-y h:m:s');?>
+        <p><?php echo date('d-m-y h:m:s');?></p>
         </div>
 </div>
 </body>
