@@ -25,24 +25,34 @@
             $username = "susy";
             $password = "novell";
             $db="mkw";
-            
+
+            $site=$_GET["site"]*8;
+            if($site==null){
+                $site=8;
+            };
             // Create connection
             $conn = new mysqli($servername, $username, $password, $db);
             $sql = "SELECT id, name, author, imagefile, width, height FROM images";
             $result = $conn->query($sql);
+            $records=$result->num_rows;
             if ($result->num_rows > 0) {
                 // output data of each row
+                $reader=1;
+                
                 while($row = $result->fetch_assoc()) {
-                    echo"
-                    <a href='/sprawdzian/exam/view.php?id=".$row["id"]."'>
-                    <div style='max-width:20vw;' class=\"col\">
-                    <div class=\"card shadow-sm\">
-                        <img style='max-height:100px; max-width:200px;'placehorder='photo' src='".$row["imagefile"]."' height='".$row["height"]."' width='".$row["width"]."'>
-                        <div class=\"card-body\">
-                        <p class=\"card-text\">".$row["name"]."<br>Author: ".$row["author"]."</p>
+                    if($reader>=$site-7 and $reader<=$site){
+                        echo"
+                        <a href='/sprawdzian/exam/view.php?id=".$row["id"]."'>
+                        <div style='max-width:20vw;' class=\"col\">
+                        <div class=\"card shadow-sm\">
+                            <img style='max-height:100px; max-width:200px;'placehorder='photo' src='".$row["imagefile"]."' height='".$row["height"]."' width='".$row["width"]."'>
+                            <div class=\"card-body\">
+                            <p class=\"card-text\">".$row["name"]."<br>Author: ".$row["author"]."</p>
+                            </div>
                         </div>
-                    </div>
-                    </div></a>";
+                        </div></a>";
+                    } 
+                    $reader++;
                 }
               } else {
                 echo "No photos";
@@ -53,6 +63,19 @@
             </div>
             </div>
         </div>
+        <?php $max=ceil($records/8);
+        ?>
+        <a href='/sprawdzian/exam/index.php?site=<?php if($_GET["site"]==1){
+            echo '1';
+        }else{
+            echo $_GET["site"]-1;
+        }?>'><button><</button></a>
+        <a href='/sprawdzian/exam/index.php?site=<?php if($_GET["site"]<$max){
+            echo $_GET["site"]+1;
+            
+        }else{
+            echo $_GET["site"];
+        }?>'><button>></button></a>
 </div>
 </body>
 </html>
