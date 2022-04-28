@@ -23,4 +23,4 @@
      echo "<h1>No record</h1>";
  }
  ?>
- <a href='/sprawdzian/exam/index.php'><button>Powrót</button></a>
+ <a href='/sprawdzian/exam/index.php?site=<?php echo $_GET["site"]?>'><button>Powrót</button></a>

@@ -25,7 +25,10 @@
             $username = "susy";
             $password = "novell";
             $db="mkw";
-
+            
+            if($_GET["site"]==null){
+                $_GET["site"]=1;
+            }
             $site=$_GET["site"]*8;
             if($site==null){
                 $site=8;
@@ -42,7 +45,7 @@
                 while($row = $result->fetch_assoc()) {
                     if($reader>=$site-7 and $reader<=$site){
                         echo"
-                        <a href='/sprawdzian/exam/view.php?id=".$row["id"]."'>
+                        <a href='/sprawdzian/exam/view.php?id=".$row["id"]."&site=".$_GET["site"]."'>
                         <div style='max-width:20vw;' class=\"col\">
                         <div class=\"card shadow-sm\">
                             <img style='max-height:100px; max-width:200px;'placehorder='photo' src='".$row["imagefile"]."' height='".$row["height"]."' width='".$row["width"]."'>
